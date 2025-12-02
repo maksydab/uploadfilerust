@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>My First Heading</h1>
+<p>My first paragraph.</p>
+<a href="/secondpage">secondpage</a>
+
+<form id="uploadForm">
+    <input type="file" id="fileInput" required>
+    <button type="button" onclick="uploadFile()">Upload</button>
+</form>
+
+<script>
+async function uploadFile() {
+    const input = document.getElementById('fileInput');
+    if (!input.files.length) return alert("Select a file");
+
+    const file = input.files[0];
+    const response = await fetch(`/api/upload/${file.name}`, {
+        method: 'POST',
+        body: file
+    });
+
+    const text = await response.text();
+    alert("Uploaded as: " + text);
+}
+</script>
+
+</body>
+</html>
